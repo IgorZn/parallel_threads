@@ -4,10 +4,10 @@ import time
 
 class MyThread(threading.Thread):
     def __init__(self, number, func, args):
-        super().__init__()
         self.number = number
         self.func = func
         self.args = args
+        super().__init__()
 
     def run(self):
         print('*self.args:', *self.args)
