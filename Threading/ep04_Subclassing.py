@@ -1,40 +1,39 @@
 import threading
 import time
 
+
 class MyThread(threading.Thread):
+    def __init__(self, number, func, args):
+        super().__init__()
+        self.number = number
+        self.func = func
+        self.args = args
 
     def run(self):
-        print(f'{self.getName()} has started')
-        try:
-            if self._target:
-                self._target(*self._args, **self._kwargs)
-        finally:
-            # Avoid a refcycle if the thread is running a function with
-            # an argument that has a member that points to the thread.
-            del self._target, self._args, self._kwargs
-
-        print(f'{self.getName()} has finished')
+        print('*self.args:', *self.args)
+        print(f'{self.number} has started')
+        self.func(*self.args)
+        print(f'{self.number} has finished')
 
 
-def sleeper(N, name):
-    print(f'Hello, {name}. I\'m going to sleep for {N} seconds.')
-    time.sleep(N)
-    print(f':{name}\t I\'ve woken up. I\'ve slept for {N} \n')
+def double(number, cycles):
+    for i in range(cycles):
+        number += number
+    print(number)
 
 
+thread_list = []
 
-def run_sleeper():
+for i in range(0, 50):
+    name = f'thread {i}'
+    t = MyThread(number=i+1, func=double, args=[i, 3])
+    t.start()
 
+print(__name__)
 
-    for i in range(0,5):
-        name = f'thread {i}'
-        t = MyThread(target=sleeper, name=name, args=(3, name))
-
-        t.start()
-
-
+for t in thread_list:
+    t.join()
 
 start = time.time()
-run_sleeper()
 end = time.time()
 print(f'The end. Time taken {end - start}')
