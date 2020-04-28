@@ -45,14 +45,14 @@ if __name__ == '__main__':
 
     thread_list = [adding_2, adding_3, substracting_4, substracting_1]
 
-    for i in range(10000):
-        for thread in thread_list:
-            th = threading.Thread(target=thread)
-            th.start()
-            th.join()
+    for _ in range(100):
+        for i in range(10000):
+            for thread in thread_list:
+                th = threading.Thread(target=thread)
+                th.start()
+                th.join()
 
-        if x != 0:
-            print(x)
-            break
-
-    print(x)
+            if x != 0:
+                print(x)
+                break
+        print(_, x)

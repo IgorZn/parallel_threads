@@ -41,6 +41,8 @@ def add_val_to_q(q):
         q.put(5)
 
 
+simple_q()
+
 t = threading.Thread(target=add_val_to_q, args=(q,), daemon=True)
 t.start()
 t2 = threading.Thread(target=size_of_queue, args=(q,), daemon=True)
@@ -52,3 +54,4 @@ print(q.get())
 
 print('Now wait for new val in queue')
 print(q.get())
+
