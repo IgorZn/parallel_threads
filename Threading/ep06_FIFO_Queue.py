@@ -23,6 +23,9 @@ def simple_q():
     # Сложить в очередь значения от 0 до 9
     for i in range(10):
         q.put(i)
+        print(i, end=' ')
+    print()
+    print('Выход элементов из очереди')
 
     for i in range(q.qsize()):
         print(q.get(), f'q.empty: {q.empty()}, q.size: {q.qsize()}')
